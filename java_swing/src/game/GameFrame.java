@@ -22,8 +22,8 @@ public class GameFrame extends JFrame implements KeyListener {
     private int playerX = 200;
     private int playerY = 300;
 
-    private int player2X = 300;
-    private int player2Y = 400;
+    private int player2X = 200;
+    private int player2Y = 300;
 
     private boolean flag = true;
 
@@ -78,7 +78,7 @@ public class GameFrame extends JFrame implements KeyListener {
         } else if(code == KeyEvent.VK_RIGHT) {
             playerX += 10;
         }
-        if(Math.abs(player2X-playerX) <= 0 && Math.abs(player2Y-playerY) <=0 ){
+        if(Math.abs(player2X-playerX) <= 150 && Math.abs(player2Y-playerY) <=150 ){
             System.out.println("접촉했다 !");
             player1 = null;
 
@@ -103,7 +103,7 @@ public class GameFrame extends JFrame implements KeyListener {
             super.paintComponent(g);
             g.drawImage(backgroundImage, 0, 0, 1000, 600, null);
             g.drawImage(player1, playerX, playerY, 100, 100, null);
-            g.drawImage(player2, player2X, player2Y, 150, 150, null);
+            g.drawImage(player2, player2X, player2Y, 500, 500, null);
         }
 
         @Override
