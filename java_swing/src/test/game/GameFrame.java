@@ -27,6 +27,7 @@ public class GameFrame extends JFrame implements KeyListener {
 
 
 
+
     //
 
     //생성자
@@ -34,6 +35,8 @@ public class GameFrame extends JFrame implements KeyListener {
         initData();
         setInitData();
         addEventListener();
+        Thread thread1 = new Thread(imagePanel);
+        thread1.start();
     }
 
     //메서드
@@ -85,11 +88,16 @@ public class GameFrame extends JFrame implements KeyListener {
             case 40:
                 player1Y += 5;
                 break;
+        }//end of switch - case
+
+        if (Math.abs(player2X - player1X) <= 150 && Math.abs(player2Y - player1Y) <= 150) {
+            System.out.println("접촉");
+            player1 = null;
         }
         repaint();
         //플레이어 1 이동 능력 구현 완료 . 플레이어 2 이동 구현해보자
         //플레이어2 하드코딩된 draw의 좌표 지역변수로 수정하자
-        //플레이어 1의 이동과 맵 등은 메인쓰레드가, 2의 이동부터는 보조쓰레드로해보자
+
         //쓰레드 구현은 ? 상속과 인터페이스
         //상속은 JFrame 을 쓰고있으니 인터페이스를 활용하자
     }
@@ -101,7 +109,7 @@ public class GameFrame extends JFrame implements KeyListener {
     }
 
     //내부클래스
-    private class ImagePanel extends JPanel implements Runnable{
+    private class ImagePanel extends JPanel implements Runnable {
         @Override
         protected void paintComponent(Graphics g) {
             g.drawImage(backGroundMap, 0, 0, 1000, 600, null);
@@ -116,13 +124,30 @@ public class GameFrame extends JFrame implements KeyListener {
             //추상 인터페이스 러너블을 구현하여 메서드 오버라이드로 재정의 해주어야한다.
             //플레이어2가 x좌표 100,900에 도달할때마다 방향을 바꾸고싶어->분기점flag
             //방향 변수필요
-            boolean flag =true; // 분기 나누기
-            boolean direction = true; //트루 우측 , 펄스 좌측
-            while(flag){
-                if(direction == true){
-                    player2X+=5;
+            boolean flag = true; // 분기 나누기
+            boolean direction = true; //트루 우측 , 펄스 좌측으로 가정
+            while (flag) {
+                if (direction) {
+                    player2X += 5;
+                } else {
+                    player2X -= 5;
                 }
-            }
+
+                if (player2X >= 900) {
+                    direction = false;
+                }
+                if (player2X <= 100) {
+                    direction = true;
+                }
+                try {
+                    Thread.sleep(50);
+                    // 그림을 다시 그려라
+                    repaint();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }//end of while
 
 
         }
