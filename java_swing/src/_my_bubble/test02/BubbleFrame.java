@@ -1,4 +1,4 @@
-package src.bubble.test02;
+package src._my_bubble.test02;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -8,6 +8,7 @@ public class BubbleFrame extends JFrame {
     //-------------------------------------------속성---------------------------------------------
     private JLabel backgroundMap; //배경 맵
     private Player player;
+
 
 
 
@@ -45,9 +46,6 @@ public class BubbleFrame extends JFrame {
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_F1 && player ==null){
-                    player = new Player();
-                }
 
             }
 
@@ -56,7 +54,11 @@ public class BubbleFrame extends JFrame {
                 System.out.println("code : " + e.getKeyCode());
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT:
-                        player.left();
+
+                            player.left();
+
+
+
                         break;
                     case KeyEvent.VK_RIGHT:
                         player.right();

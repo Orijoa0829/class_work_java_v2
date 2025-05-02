@@ -1,4 +1,4 @@
-package src._my_bubble;
+package src.bubble.test05;
 
 public class MainTest {
 }

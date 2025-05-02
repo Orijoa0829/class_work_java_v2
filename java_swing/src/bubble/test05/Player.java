@@ -1,4 +1,4 @@
-package src._my_bubble;
+package src.bubble.test05;
 
 import javax.swing.*;
 
@@ -18,52 +18,106 @@ public class Player extends JLabel implements Moveable {
     private boolean right;
     private boolean up;
     private boolean down;
+    //벽에 충돌한 상태
     private boolean leftWallCrash;
+    private boolean rightWallCrash;
 
-    public void setRightWallCrash(boolean rightWallCrash) {
-        this.rightWallCrash = rightWallCrash;
+    //플레이어 방향 상태 (enum 타입 사용법1 - 선언)
+    private PlayerWay playerWay;
+
+    public PlayerWay getPlayerWay() {
+        return playerWay;
     }
 
-    public void setLeftWallCrash(boolean leftWallCrash) {
-        this.leftWallCrash = leftWallCrash;
+    @Override
+    public int getX() {
+        return x;
     }
 
-    public void setDown(boolean down) {
-        this.down = down;
+    @Override
+    public int getY() {
+        return y;
     }
 
-    public void setUp(boolean up) {
-        this.up = up;
+    public ImageIcon getPlayerR() {
+        return playerR;
     }
 
-    public void setRight(boolean right) {
-        this.right = right;
+    public ImageIcon getPlayerL() {
+        return playerL;
     }
 
-    public void setLeft(boolean left) {
-        this.left = left;
+    public int getSPEED() {
+        return SPEED;
     }
 
-    public void setPlayerL(ImageIcon playerL) {
-        this.playerL = playerL;
+    public int getJUMP_SPEED() {
+        return JUMP_SPEED;
     }
 
-    public void setPlayerR(ImageIcon playerR) {
-        this.playerR = playerR;
+    public boolean isLeft() {
+        return left;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public boolean isRight() {
+        return right;
+    }
+
+    public boolean isUp() {
+        return up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public boolean isLeftWallCrash() {
+        return leftWallCrash;
+    }
+
+    public boolean isRightWallCrash() {
+        return rightWallCrash;
     }
 
     public void setX(int x) {
         this.x = x;
     }
 
-    private boolean rightWallCrash;
+    public void setY(int y) {
+        this.y = y;
+    }
 
+    public void setPlayerR(ImageIcon playerR) {
+        this.playerR = playerR;
+    }
 
+    public void setPlayerL(ImageIcon playerL) {
+        this.playerL = playerL;
+    }
 
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
+    }
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
+    public void setLeftWallCrash(boolean leftWallCrash) {
+        this.leftWallCrash = leftWallCrash;
+    }
+
+    public void setRightWallCrash(boolean rightWallCrash) {
+        this.rightWallCrash = rightWallCrash;
+    }
 
     public Player() {
         initData();
@@ -91,6 +145,8 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void left() {
+        //클래스 이름으로 접근한다.
+        playerWay = PlayerWay.LEFT;
         left = true; //움직임 상태값 변경
         setIcon(playerL);
         //익명 클래스 =thread.start() --->run() 메서드 안의 구문이 동작된다
@@ -113,6 +169,7 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void right() {
+        playerWay = PlayerWay.RIGHT;
         right = true; //움직임 상태값 변경
         setIcon(playerR);
         //익명 클래스 =thread.start() --->run() 메서드 안의 구문이 동작된다

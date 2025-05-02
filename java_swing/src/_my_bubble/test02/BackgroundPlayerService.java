@@ -1,4 +1,4 @@
-package src._my_bubble;
+package src._my_bubble.test02;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

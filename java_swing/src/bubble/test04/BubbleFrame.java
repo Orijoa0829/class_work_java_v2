@@ -1,4 +1,4 @@
-package src.bubble.test02;
+package src.bubble.test04;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -10,13 +10,14 @@ public class BubbleFrame extends JFrame {
     private Player player;
 
 
-
-
     //-------------------------------------------생성자-------------------------------------------
     public BubbleFrame() {
         initData();
         setInitLayout();
         addEventListener();
+
+
+        new Thread(new BackgroundPlayerService(player)).start();
     }
 
     //----------------------------------------------메서드-----------------------------------------
@@ -45,9 +46,6 @@ public class BubbleFrame extends JFrame {
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_F1 && player ==null){
-                    player = new Player();
-                }
 
             }
 
@@ -56,13 +54,24 @@ public class BubbleFrame extends JFrame {
                 System.out.println("code : " + e.getKeyCode());
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT:
-                        player.left();
+                        if (!player.isLeft() && !player.isLeftWallCrash()) {
+                            System.out.println("왼쪽 누르고잇음");
+                            player.left();
+                        }
                         break;
                     case KeyEvent.VK_RIGHT:
-                        player.right();
+                        //만약 플레이어가 오른쪽으로 가고 있는 상태가 아니라면, 메서드를 수행해
+                        //만약 플레이어가 오른쪽으로 가고 있는 상태라면, right 메서드를 수행하지마
+                        if (player.isRight() == false && player.isRightWallCrash() == false) {
+                            System.out.println("오른쪽 누르고잇음");
+                            player.right();
+                        }
                         break;
                     case KeyEvent.VK_UP:
                         player.up();
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        add(new Bubble(player));
                         break;
                 }
 
